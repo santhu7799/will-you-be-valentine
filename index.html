@@ -2,99 +2,98 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Valentine 😈💘</title>
+<title>Will you be my Valentine?</title>
 
 <style>
   body {
-    height: 100vh;
     margin: 0;
-    overflow: hidden;
-    background: radial-gradient(circle, #ff416c, #ff4b2b);
+    height: 100vh;
+    background: #f6d5db;
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-family: 'Arial', sans-serif;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+
+  .card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 350px;
     text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    position: relative;
   }
 
   h1 {
-    color: white;
-    font-size: 36px;
-    margin-bottom: 30px;
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+
+  .emoji {
+    font-size: 50px;
+    margin-bottom: 10px;
+  }
+
+  .buttons {
+    margin-top: 20px;
+    height: 120px;
+    position: relative;
   }
 
   button {
-    padding: 15px 35px;
-    font-size: 20px;
+    padding: 10px 22px;
+    font-size: 16px;
+    border-radius: 20px;
     border: none;
-    border-radius: 30px;
     cursor: pointer;
-    position: absolute;
   }
 
   #yes {
-    background: #00ff9c;
-    color: black;
-    left: 40%;
-    top: 60%;
-  }
-
-  #no {
-    background: #000;
+    background: #ff4d6d;
     color: white;
   }
 
-  .shake {
-    animation: shake 0.1s infinite;
-  }
-
-  @keyframes shake {
-    0% { transform: translate(2px, 2px); }
-    25% { transform: translate(-2px, -2px); }
-    50% { transform: translate(2px, -2px); }
-    75% { transform: translate(-2px, 2px); }
-  }
-
-  .heart {
+  #no {
+    background: #999;
+    color: white;
     position: absolute;
-    font-size: 30px;
-    animation: fly 2s linear infinite;
+    left: 140px;
+    top: 50px;
   }
 
-  @keyframes fly {
-    from {
-      transform: translateY(100vh) scale(1);
-      opacity: 1;
-    }
-    to {
-      transform: translateY(-10vh) scale(2);
-      opacity: 0;
-    }
+  img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 15px;
   }
 </style>
 </head>
 
 <body>
 
-<div id="container">
-  <h1 id="text">Will you be my Valentine? 💖😈</h1>
-</div>
+<div class="card" id="card">
+  <div class="emoji">🐱💖</div>
+  <h1><b>nirali</b> will you be my valentine?</h1>
 
-<button id="yes">YES 💘</button>
-<button id="no">NO 😜</button>
+  <div class="buttons">
+    <button id="yes">YES 💘</button>
+    <button id="no">NO 😜</button>
+  </div>
+</div>
 
 <script>
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
-const text = document.getElementById("text");
+const card = document.getElementById("card");
 
-// NO button runs away BEFORE cursor reaches it
+// NO button escapes cursor
 document.addEventListener("mousemove", (e) => {
   const rect = noBtn.getBoundingClientRect();
-  const distX = Math.abs(e.clientX - (rect.left + rect.width / 2));
-  const distY = Math.abs(e.clientY - (rect.top + rect.height / 2));
+  const dx = e.clientX - (rect.left + rect.width / 2);
+  const dy = e.clientY - (rect.top + rect.height / 2);
 
-  if (distX < 120 && distY < 120) {
+  if (Math.abs(dx) < 100 && Math.abs(dy) < 100) {
     moveNo();
   }
 });
@@ -102,42 +101,18 @@ document.addEventListener("mousemove", (e) => {
 noBtn.addEventListener("touchstart", moveNo);
 
 function moveNo() {
-  const x = Math.random() * (window.innerWidth - 100);
-  const y = Math.random() * (window.innerHeight - 50);
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
+  noBtn.style.left = Math.random() * 250 + "px";
+  noBtn.style.top = Math.random() * 90 + "px";
 }
 
-// YES = CRAZY MODE
+// YES = final output like screenshot
 yesBtn.onclick = () => {
-  document.body.classList.add("shake");
-
-  text.innerHTML = "OMG 😍💥 YESSSSS!!!";
-  yesBtn.remove();
-  noBtn.remove();
-
-  setInterval(() => {
-    text.innerHTML = [
-      "I LOVE YOU 💖",
-      "YOU ARE MINE 😈",
-      "BEST VALENTINE EVER 💘",
-      "CAN'T ESCAPE NOW 😜",
-      "FOREVER ❤️‍🔥"
-    ][Math.floor(Math.random() * 5)];
-  }, 300);
-
-  setInterval(createHeart, 100);
+  card.innerHTML = `
+    <div class="emoji">🎉💖</div>
+    <h1>YAY! 🎉</h1>
+    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+  `;
 };
-
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "💖";
-  heart.style.left = Math.random() * window.innerWidth + "px";
-  document.body.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 2000);
-}
 </script>
 
 </body>
